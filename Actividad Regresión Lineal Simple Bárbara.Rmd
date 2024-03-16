@@ -1,0 +1,202 @@
+---
+title: "Actividad Regresión Lineal Simple"
+author: "Bárbara"
+date: "2024-03-14"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+# Ejercicio 1: Si pretendiésemos explicar un suceso y/o fenómeno acontecido en el pasado ¿Podemos inferir la respuesta asociada a dichos eventos en base a los restos materiales presentes?
+
+Sí, pues los restos materiales son datos concretos que nos permiten razonar y formular hipótesis para llegar a conclusiones generales. 
+
+# Ejercicio 2: Haciendo referencia al análisis de correlación lineal de Pearson, ¿establece este algún tipo de relación causa-efecto de una variable sobre otra(s)?
+
+No, puesto que se trata de variables relacionadas de forma lineal y esta correlación sólo mide cómo cambian ambas variables paralelamente, por ejemplo, tenemos la variable "estudiar" y variable "rendimiento académico", pudiendo ver que, cuando aumente la variable "estudiar", aumentará a su vez la variable "rendimiento académico", en la misma dirección o no, y en la misma proporción.
+
+# Ejercicio 3: Define causalidad. Exponga algún ejemplo.
+
+La causalidad significa que existe una relación de causa-efecto entre dos variables, es decir, que una variable que actúa como causa, influye en otra variable que actuaría como efecto. Un ejemplo sería el mismo expuesto en la pregunta anterior: al aumentar la variable "estudiar" (causa), aumenta la variable "rendimiento académico" (efecto) en una relación positiva, y lo mismo ocurriría a la inversa, es decir, si la variable "estudiar" descendiese, la variable "rendimiento académico" también descendería. 
+
+# Ejercicio 4: ¿Podrías mencionar los parámetros involucrados en la ecuación de regresión lineal?
+
+Estos parámetros los vemos en la ecuación de regresión, E(y/x) = β0 + β1 x, siendo estos el intercepto (β0) y la pendiente (β1).
+
+# Ejercicio 5: En un plano cartesiano, si afirmo que el eje ‘x’ también se denomina eje de ordenadas, ¿estoy en lo cierto?
+
+No, el eje 'x' en un plano cartesiano se denomina eje de abscisas.
+
+# Ejercicio 6: ¿Sabrías diferenciar entre recta de regresión y plano de regresión?
+
+La recta de regresión se trata de una línea recta que muestra la relación entre dos variables para predecir el valor de una variable en función de otra, reduciendo la distancia vertical entre los puntos de datos y la línea. Por tanto, la recta de regresión relacionaría una variable independiente con otra dependiente. 
+
+Mientras que un plano de regresión no es una línea de regresión, sino una superficie en tres dimensiones (x, y, z), que pone en relación una sola variable dependiente con dos o más independientes. 
+
+# Ejercicio 7: ¿Cuáles son los supuestos (o hipótesis) del análisis de regresión lineal?
+
+Son cuatro: la linealidad, la normalidad, la homocedasticidad y la independencia.
+
+# Ejercicio 8: Dados los siguientes datos, calcula la recta de regresión que mejor se adapte a nuestra nube de puntos siendo “cuentas” la variable dependiente o de respuesta y “distancia” la variable independiente o explicativa. 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+library(kableExtra)
+
+```{r}
+x_distancia <- c(1.1, 100.2, 90.3, 5.4, 57.5, 6.6, 34.7, 65.8, 57.9, 86.1)
+y_cuentas <- c(110, 2, 6, 98, 40, 94, 31, 5, 8, 10)
+xy <- y_cuentas * x_distancia
+x_cuadrado <- x_distancia^2
+tabla_datos <- data.frame(x_distancia, y_cuentas, xy, x_cuadrado)
+kbl(tabla_datos) %>%
+  kable_minimal()
+```
+
+```{r}
+x_distancia <- c(1.1, 100.2, 90.3, 5.4, 57.5, 6.6, 34.7, 65.8, 57.9, 86.1)
+y_cuentas <- c(110, 2, 6, 98, 40, 94, 31, 5, 8, 10)
+datos_variables <- data.frame(x_distancia, y_cuentas)
+recta_de_regresión <- lm(y_cuentas ~ x_distancia, data = datos_variables)
+summary(recta_de_regresión)
+```
+Estos resultados los interpretamos de la siguiente manera: el intercepto, es decir, el número de cuentas, sería 95.3710; mientras que, la pendiente (que sería la distancia), sería -1.0872.
+
+
+# Ejercicio 9: ¿Serías capaz de interpretar el significado de los parámetros de la ecuación de regresión?
+
+La ecuación de regresión sería E(y/x) = β0 + β1 x. La ecuación nos permitirá hallar el número de piezas. β0 es el intercepto (donde corta), siendo el valor de 'y' cuando x = 0. β1 es la pendiente, la cuál muestra cómo cambia la 'y' en función del valor de 'x'.
+Si utilizamos los datos de la actividad anterior, para la ecuación tendríamos: y = 95.3710 - 1.0872x, estableciendo una relación entre la variable dependiente y la independiente.
+
+
+# Ejercicio 10: ¿Qué implicaciones conlleva obtener un intercepto con valor ‘0’?
+
+Sabiendo que la fórmula es E(y/x) = β0 + β1 x, si el intercepto (β0) tiene valor '0' implica que β1x sea igual a 'y', por lo que el valor de 'y' dependerá también del valor 'x' por el que se multiplica la pendiente (β1). Es decir, si la variable independiente = 0, la variable dependiente también será 0.
+
+# Ejercicio 11: ¿Qué ponderación lleva a cabo el análisis de regresión lineal para calcular los valores de los parámetros que configuran la recta de regresión?
+
+Para este caso, se suele utilizar el método de mínimos cuadrados (ordinario), el cual permite adoptar una línea recta óptima a una muestra de datos u observaciones tomadas y denotadas por las variables. Es decir, este método halla los valores de los parámetros que minimizan la suma de los errores al cuadrado. El objetivo del método de mínimos cuadrados es hallar una recta. En base a parámetros β0 y β1, nos permite hallar 'y', siguiendo la ecuación de regresión lineal.
+
+
+# Ejercicio 12: ¿Cuál sería el error asociado a mi modelo en la estimación del número de cuentas para un yacimiento que se encuentra a 1.1 km de la mina?
+
+```{r echo=TRUE}
+dist_cuentas <- data.frame(
+distancia <- c(1.1, 100.2, 90.3, 5.4, 57.5, 6.6, 34.7, 65.8, 57.9, 86.1),
+cuentas <- c(110, 2, 6, 98, 40, 94, 31, 5, 8, 10)
+)
+modelo <- lm(cuentas ~ distancia, data = dist_cuentas)
+dist_nueva <- 1.1
+predicción1 <- predict(modelo, newdata = data.frame(distancia = dist_nueva),se.fit = TRUE)$se.fit
+print(predicción1)
+```
+Con esto vemos que nuestro error es de 9.576585.
+
+# Ejercicio 13:  ¿Cómo calcularías los residuos del modelo dado los siguientes datos?
+
+``` {r echo=TRUE}
+cuentas <- c(6, 98, 40, 94, 31, 5, 8, 10)
+predicciones <- c(-6.682842, 85.520196, 28.938591, 84.216973, 53.69983, 19.924631, 28.504183, -2.121561)
+```
+
+``` {r echo=TRUE}
+residuos <- cuentas - predicciones
+print(residuos)
+```
+
+# Ejercicio 14: Con los datos residuales, verifica si se cumple (o no) el supuesto de normalidad.
+
+```{r echo=TRUE}
+qqnorm(predicciones);qqline(residuos)
+```
+
+```{r echo=TRUE}
+shapiro.test(residuos)
+```
+Por una parte, en la gráfica anterior vemos que los puntos se alejan de la recta y, por otra parte, tanto W como p-value son inferiores a 0.05. En definitiva, estos datos nos dan a entender que no se cumple el supuesto de normalidad. 
+
+# Ejercicio 15: ¿Que 2 de conjuntos (de datos) se han de emplear en la modelización lineal? ¿Cómo llevarías a cabo la preparación de estos?
+
+Estos dos conjuntos son los datos de prueba y los de entrenamiento, que permiten la obtención de datos semialeatorios.
+
+```{r echo=TRUE}
+set.seed(123)
+entrenamiento <- sample(1:length(cuentas), 0.7*length(cuentas))
+datos_de_entrenamiento <- datos_variables[entrenamiento, ]
+datos_de_prueba <- datos_variables[-entrenamiento, ]
+```
+
+# Ejercicio 16: Evalúa la capacidad predictiva del modelo implementando una validación cruzada simple.
+
+No he sabido realizar esta pregunta. Los comandos no los tengo claros, por lo que no puedo responder a la pregunta.
+
+# Ejercicio 17: Si mis coeficientes de regresión se han calculado con un intervalo de confianza del 95% ¿cuál será la probabilidad de que la correlación lineal entre los coeficientes de regresión y la variable de respuesta o explicada se deba al azar? ¿Y si tengo un nivel de significación (Alpha) de 0.01, con que Intervalo de Confianza he obtenido mis coeficientes de regresión?
+
+Con un intervalo de confianza del 95%, se entiende que la probabilidad de que los coeficientes de regresión y la variable de respuesta o explicada se deba al azar es de un 5% (que es lo mismo que decir nivel de significancia del 0.05).
+
+En caso de tener un nivel de significación de 0.01, los coeficientes de regresión se habrían calculado con un intervalo de confianza del 99%.
+
+
+# Ejercicio 18: Si las estimaciones arrojadas por mi modelo lineal resultan menos precisas (mayor error) en un determinado rango de valores con respecto a otro, decimos ¿qué hay indicios de homocedasticidad o heterocedasticidad?
+
+Al ser menos precisas estamos hablando de  indicios de heterocedasticidad.
+
+# Ejercicio 19: ¿Qué medida de precisión estadística nos indica el % de variabilidad explicada de la variable dependiente por nuestro modelo lineal?
+
+En este caso utilizaríamos el coeficiente de determinación, o lo que es lo mismo, R cuadrado. Esto es porque esta medida analiza las diferencias que presenta una variable y si éstas pueden ser explicadas por otra variable.
+
+
+# Ejercicio 20: Explica la diferencia entre una observación atípica y una observación que produzca lo que se conoce en estadística como “apalancamiento” del modelo?
+
+Una observación atípica se trata de datos diferentes al resto de datos que queremos observarr o estudiar. Se trataría de una observación que no influye, si no se considera esta observación y los datos cambiasen, entonces ya se considera influyente.
+
+Los apalancamientos identifican observaciones como las atípicas. Observan valores que se alejan del 0, pudiendo tener su importancia en los coeficientes de regresión. Sin embargo, aquellos puntos con alto apalancamiento no tienen por qué ser atípicos.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
